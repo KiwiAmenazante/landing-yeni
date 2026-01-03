@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es-PE">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,6 +13,10 @@
             --tiktok-negro: #010101;
             --gris-claro: #f8f9fa;
             --blanco: #ffffff;
+            --font-size-base: 1rem;
+            --h1-size: clamp(2rem, 5vw + 1rem, 3.5rem);
+            --h2-size: clamp(1.5rem, 4vw, 2.5rem);
+            --p-size: clamp(1rem, 2vw, 1.25rem);
         }
 
         body {
@@ -19,13 +24,14 @@
             margin: 0;
             background-color: var(--gris-claro);
             color: var(--essen-oscuro);
+            line-height: 1.6;
         }
 
         header {
             background: var(--blanco);
-            padding: 1.2rem 5%;
+            padding: 1rem 5%;
             text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
             position: sticky;
             top: 0;
             z-index: 1000;
@@ -33,34 +39,103 @@
 
         .logo {
             font-weight: 900;
-            font-size: 1.6rem;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
             color: var(--essen-rojo);
             text-transform: uppercase;
             letter-spacing: 2px;
         }
 
+        /* Hero Split Layout Design */
         .hero {
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1350&q=80');
-            background-size: cover;
-            background-position: center;
+            background-color: var(--essen-oscuro);
+            display: flex;
+            flex-direction: column-reverse;
+            /* Mobile: Image top, Text bottom if HTML order is Content, Image */
+            min-height: auto;
+            padding: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-content {
+            flex: 1;
+            padding: 40px 20px;
             color: white;
             text-align: center;
-            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 2;
         }
 
-        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
-        .hero p { font-size: 1.2rem; opacity: 0.9; }
+        .hero-image-container {
+            width: 100%;
+            height: 35vh;
+            /* Reduced height on mobile as requested */
+            min-height: 250px;
+            position: relative;
+        }
+
+        .hero-image-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 30%;
+            /* Balanced to show face and pots in shorter frame */
+            display: block;
+        }
+
+        /* Gradient overlay for smooth transition on mobile if needed, or simple clean cut */
+        .hero-image-container::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 20%;
+            background: linear-gradient(to top, var(--essen-oscuro), transparent);
+            pointer-events: none;
+        }
+
+        .hero h1 {
+            font-size: var(--h1-size);
+            margin-bottom: 20px;
+            line-height: 1.2;
+            max-width: 600px;
+            text-shadow: none;
+            /* No longer needed on solid bg */
+        }
+
+        .hero p {
+            font-size: var(--p-size);
+            opacity: 0.9;
+            max-width: 500px;
+            margin-bottom: 30px;
+            /* Space for CTA if added later */
+            text-shadow: none;
+        }
 
         /* Sección Videos */
-        .video-section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
-        .video-section h2 { 
-            text-align: center; 
-            color: var(--essen-oscuro); 
-            margin-bottom: 10px;
-            font-size: 2.2rem;
+        .video-section {
+            padding: clamp(40px, 8vh, 80px) 5%;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+
+        .video-section h2 {
+            text-align: center;
+            color: var(--essen-oscuro);
+            margin-bottom: 10px;
+            font-size: var(--h2-size);
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: var(--p-size);
+        }
 
         .video-grid {
             display: grid;
@@ -72,31 +147,37 @@
             background: white;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
         }
 
-        .video-card:hover { transform: translateY(-8px); }
+        .video-card:hover {
+            transform: translateY(-8px);
+        }
 
         .tiktok-container {
             position: relative;
-            padding-bottom: 177%; 
+            padding-bottom: 177.77%;
+            /* 9:16 Aspect Ratio Siempre */
             height: 0;
             background: #000;
         }
 
-.tiktok-container iframe {
+        .tiktok-container iframe {
             position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             border: none;
         }
-        
+
         /* Lazy loading para videos */
         .tiktok-container iframe.lazy {
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
+
         .tiktok-container iframe.loaded {
             opacity: 1;
         }
@@ -156,7 +237,9 @@
             transition: 0.3s;
         }
 
-        .btn-catalogo:hover { transform: scale(1.05); }
+        .btn-catalogo:hover {
+            transform: scale(1.05);
+        }
 
         /* Botón WhatsApp */
         .btn-ws {
@@ -189,87 +272,233 @@
             text-decoration: none;
         }
 
-        footer { text-align: center; padding: 50px; background: var(--essen-oscuro); color: rgba(255,255,255,0.7); }
+        footer {
+            text-align: center;
+            padding: 50px;
+            background: var(--essen-oscuro);
+            color: rgba(255, 255, 255, 0.7);
+        }
 
-/* MEDIA QUERIES RESPONSIVAS AVANZADAS */
-        
+        /* MEDIA QUERIES RESPONSIVAS AVANZADAS */
+
         /* Desktop (>1200px) */
         @media (min-width: 1201px) {
-            header { padding: 1.5rem 8%; }
-            .logo { font-size: 1.8rem; }
-            .hero { padding: 120px 20px; }
-            .hero h1 { font-size: 3.2rem; }
-            .hero p { font-size: 1.3rem; }
-            .video-section { padding: 80px 8%; max-width: 1400px; }
-            .video-section h2 { font-size: 2.5rem; }
-            .video-grid { 
-                grid-template-columns: repeat(3, 1fr); 
+            header {
+                padding: 1.5rem 8%;
+            }
+
+            .logo {
+                font-size: 1.8rem;
+            }
+
+            .hero {
+                /* Reset padding from previous styles */
+                padding: 0;
+                min-height: 85vh;
+                flex-direction: row;
+                align-items: stretch;
+            }
+
+            .hero-content {
+                flex: 0 0 35%;
+                /* Text takes less space (35%), Image takes more (65%) */
+                padding: 0 4% 0 6%;
+                text-align: left;
+                align-items: flex-start;
+                justify-content: center;
+            }
+
+            .hero-image-container {
+                flex: 1;
+                /* Image takes rest */
+                height: auto;
+                min-height: 100%;
+            }
+
+            .hero-image-container::after {
+                /* Use side gradient on desktop? Omit for clean look or change direction */
+                background: linear-gradient(to right, var(--essen-oscuro), transparent);
+                width: 20%;
+                height: 100%;
+                top: 0;
+                bottom: auto;
+            }
+
+
+            .video-section {
+                padding: 80px 8%;
+                max-width: 1400px;
+            }
+
+
+            .video-grid {
+                grid-template-columns: repeat(3, 1fr);
                 gap: 30px;
             }
-            .catalogo-section { padding: 80px 15%; }
-            .catalogo-box { padding: 50px; max-width: 700px; }
-            .btn-catalogo { padding: 25px 50px; font-size: 1.3rem; }
-            .btn-ws { padding: 22px 50px; font-size: 1.2rem; }
-            .whatsapp-float { 
-                width: 75px; 
-                height: 75px; 
-                bottom: 40px; 
-                right: 40px; 
+
+            .catalogo-section {
+                padding: 80px 15%;
+            }
+
+            .catalogo-box {
+                padding: 50px;
+                max-width: 700px;
+            }
+
+            .btn-catalogo {
+                padding: 25px 50px;
+                font-size: 1.3rem;
+            }
+
+            .btn-ws {
+                padding: 22px 50px;
+                font-size: 1.2rem;
+            }
+
+            .whatsapp-float {
+                width: 75px;
+                height: 75px;
+                bottom: 40px;
+                right: 40px;
                 font-size: 36px;
             }
         }
-        
+
         /* Tablet (768px-1200px) */
         @media (min-width: 768px) and (max-width: 1200px) {
-            header { padding: 1.2rem 6%; }
-            .logo { font-size: 1.6rem; }
-            .hero { padding: 100px 20px; }
-            .hero h1 { font-size: 2.8rem; }
-            .hero p { font-size: 1.2rem; }
-            .video-section { padding: 60px 6%; max-width: 1000px; }
-            .video-section h2 { font-size: 2.2rem; }
-            .video-grid { 
-                grid-template-columns: repeat(2, 1fr); 
+            header {
+                padding: 1.2rem 6%;
+            }
+
+            .logo {
+                font-size: 1.6rem;
+            }
+
+            .hero {
+                /* Tablet: Hybrid - try row if wide enough, otherwise stack is fine. Let's force Row for 768+ */
+                flex-direction: row;
+                padding: 0;
+                min-height: 50vh;
+                align-items: stretch;
+            }
+
+            .hero-content {
+                flex: 1;
+                padding: 40px 5%;
+                text-align: left;
+                align-items: flex-start;
+                justify-content: center;
+            }
+
+            .hero-image-container {
+                flex: 1;
+                height: auto;
+            }
+
+            .hero-image-container::after {
+                background: linear-gradient(to right, var(--essen-oscuro), transparent);
+                width: 15%;
+                height: 100%;
+                top: 0;
+                bottom: auto;
+            }
+
+
+            .video-section {
+                padding: 60px 6%;
+                max-width: 1000px;
+            }
+
+
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
                 gap: 25px;
             }
-            .catalogo-section { padding: 60px 10%; }
-            .catalogo-box { padding: 40px; max-width: 600px; }
-            .btn-catalogo { padding: 20px 40px; font-size: 1.2rem; }
-            .btn-ws { padding: 18px 40px; font-size: 1.1rem; }
-            .whatsapp-float { 
-                width: 65px; 
-                height: 65px; 
-                bottom: 30px; 
-                right: 30px; 
+
+            .catalogo-section {
+                padding: 60px 10%;
+            }
+
+            .catalogo-box {
+                padding: 40px;
+                max-width: 600px;
+            }
+
+            .btn-catalogo {
+                padding: 20px 40px;
+                font-size: 1.2rem;
+            }
+
+            .btn-ws {
+                padding: 18px 40px;
+                font-size: 1.1rem;
+            }
+
+            .whatsapp-float {
+                width: 65px;
+                height: 65px;
+                bottom: 30px;
+                right: 30px;
                 font-size: 32px;
             }
         }
-        
+
         /* Móvil (480px-768px) */
         @media (min-width: 480px) and (max-width: 767px) {
-            header { padding: 1rem 4%; }
-            .logo { font-size: 1.4rem; letter-spacing: 1px; }
-            .hero { padding: 80px 15px; }
-            .hero h1 { font-size: 2.4rem; }
-            .hero p { font-size: 1.1rem; }
-            .video-section { padding: 50px 4%; }
-            .video-section h2 { font-size: 2rem; }
-            .video-grid { 
-                grid-template-columns: 1fr; 
+            header {
+                padding: 1rem 4%;
+            }
+
+            .logo {
+                font-size: 1.4rem;
+                letter-spacing: 1px;
+            }
+
+            .hero {
+                padding: 0;
+                min-height: auto;
+            }
+
+
+            .video-section {
+                padding: 50px 4%;
+            }
+
+
+            .video-grid {
+                grid-template-columns: 1fr;
                 gap: 20px;
             }
-            .video-card { border-radius: 15px; }
-            .tiktok-container { padding-bottom: 177%; }
-            .video-title { padding: 15px; font-size: 0.95rem; }
-            .tiktok-profile-btn { 
-                padding: 18px 25px; 
+
+            .video-card {
+                border-radius: 15px;
+            }
+
+            .tiktok-container {
+                padding-bottom: 177%;
+            }
+
+            .video-title {
+                padding: 15px;
+                font-size: 0.95rem;
+            }
+
+            .tiktok-profile-btn {
+                padding: 18px 25px;
                 font-size: 1rem;
                 margin: 30px auto;
             }
-            .catalogo-section { padding: 50px 6%; }
-            .catalogo-box { padding: 30px 20px; }
-            .btn-catalogo { 
-                padding: 25px 30px; 
+
+            .catalogo-section {
+                padding: 50px 6%;
+            }
+
+            .catalogo-box {
+                padding: 30px 20px;
+            }
+
+            .btn-catalogo {
+                padding: 25px 30px;
                 font-size: 1.1rem;
                 min-height: 50px;
                 display: flex;
@@ -277,8 +506,9 @@
                 justify-content: center;
                 gap: 10px;
             }
-            .btn-ws { 
-                padding: 22px 30px; 
+
+            .btn-ws {
+                padding: 22px 30px;
                 font-size: 1rem;
                 min-height: 50px;
                 display: flex;
@@ -286,45 +516,86 @@
                 justify-content: center;
                 gap: 10px;
             }
-            .whatsapp-float { 
-                width: 60px; 
-                height: 60px; 
-                bottom: 20px; 
-                right: 20px; 
+
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 20px;
+                right: 20px;
                 font-size: 28px;
             }
         }
-        
+
         /* Móvil pequeño (<480px) */
         @media (max-width: 479px) {
-            header { padding: 0.8rem 3%; }
-            .logo { font-size: 1.2rem; letter-spacing: 0.5px; }
-            .hero { padding: 60px 10px; }
-            .hero h1 { font-size: 2rem; line-height: 1.2; }
-            .hero p { font-size: 1rem; }
-            .video-section { padding: 40px 3%; }
-            .video-section h2 { font-size: 1.8rem; }
-            .subtitle { font-size: 0.9rem; margin-bottom: 30px; }
-            .video-grid { 
-                grid-template-columns: 1fr; 
+            header {
+                padding: 0.8rem 3%;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+                letter-spacing: 0.5px;
+            }
+
+            .hero {
+                padding: 60px 10px;
+            }
+
+
+            .video-section {
+                padding: 40px 3%;
+            }
+
+
+            .subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 30px;
+            }
+
+            .video-grid {
+                grid-template-columns: 1fr;
                 gap: 15px;
             }
-            .video-card { border-radius: 12px; }
-            .tiktok-container { padding-bottom: 177%; }
-            .video-title { padding: 12px; font-size: 0.9rem; }
-            .tiktok-profile-btn { 
-                padding: 20px 20px; 
+
+            .video-card {
+                border-radius: 12px;
+            }
+
+            .tiktok-container {
+                padding-bottom: 177%;
+            }
+
+            .video-title {
+                padding: 12px;
+                font-size: 0.9rem;
+            }
+
+            .tiktok-profile-btn {
+                padding: 20px 20px;
                 font-size: 0.95rem;
                 margin: 25px auto;
                 width: 90%;
                 max-width: 300px;
             }
-            .catalogo-section { padding: 40px 4%; }
-            .catalogo-box { padding: 25px 15px; }
-            .catalogo-box h2 { font-size: 1.5rem; }
-            .catalogo-box p { font-size: 0.9rem; }
-            .btn-catalogo { 
-                padding: 30px 20px; 
+
+            .catalogo-section {
+                padding: 40px 4%;
+            }
+
+            .catalogo-box {
+                padding: 25px 15px;
+            }
+
+            .catalogo-box h2 {
+                font-size: 1.5rem;
+            }
+
+            .catalogo-box p {
+                font-size: 0.9rem;
+            }
+
+            .btn-catalogo {
+                padding: 30px 20px;
                 font-size: 1rem;
                 min-height: 60px;
                 width: 90%;
@@ -334,8 +605,9 @@
                 justify-content: center;
                 gap: 8px;
             }
-            .btn-ws { 
-                padding: 25px 20px; 
+
+            .btn-ws {
+                padding: 25px 20px;
                 font-size: 0.95rem;
                 min-height: 55px;
                 width: 90%;
@@ -345,35 +617,72 @@
                 justify-content: center;
                 gap: 8px;
             }
-            .whatsapp-float { 
-                width: 55px; 
-                height: 55px; 
-                bottom: 15px; 
-                right: 15px; 
+
+            .whatsapp-float {
+                width: 55px;
+                height: 55px;
+                bottom: 15px;
+                right: 15px;
                 font-size: 24px;
             }
-            .about { padding: 40px 4%; }
-            .about h2 { font-size: 1.5rem; }
-            .about p { font-size: 0.9rem; }
-            footer { padding: 30px 20px; font-size: 0.85rem; }
+
+            .about {
+                padding: 40px 4%;
+            }
+
+            .about h2 {
+                font-size: 1.5rem;
+            }
+
+            .about p {
+                font-size: 0.9rem;
+            }
+
+            footer {
+                padding: 30px 20px;
+                font-size: 0.85rem;
+            }
         }
-        
+
         /* Optimización de animaciones para móviles */
         @media (max-width: 767px) {
-            .video-card { transition: transform 0.2s ease; }
-            .video-card:hover { transform: translateY(-4px); }
-            .btn-catalogo { transition: transform 0.2s ease; }
-            .btn-catalogo:hover { transform: scale(1.02); }
-            .tiktok-profile-btn { transition: background 0.2s; }
+            .video-card {
+                transition: transform 0.2s ease;
+            }
+
+            .video-card:hover {
+                transform: translateY(-4px);
+            }
+
+            .btn-catalogo {
+                transition: transform 0.2s ease;
+            }
+
+            .btn-catalogo:hover {
+                transform: scale(1.02);
+            }
+
+            .tiktok-profile-btn {
+                transition: background 0.2s;
+            }
         }
-        
+
         /* Reducción de motion para usuarios que lo prefieren */
         @media (prefers-reduced-motion: reduce) {
-            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
-            .video-card, .btn-catalogo, .tiktok-profile-btn { transition: none !important; }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+
+            .video-card,
+            .btn-catalogo,
+            .tiktok-profile-btn {
+                transition: none !important;
+            }
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -381,53 +690,65 @@
     </header>
 
     <section class="hero">
-        <h1>¡Cocina Fácil y Riquísimo!</h1>
-        <p>Prepara los mejores platos peruanos ahorrando tiempo y gas.</p>
+        <div class="hero-content">
+            <h1>Transforma tu Cocina en una Experiencia Essen</h1>
+            <p>Innovación y diseño para preparar tus recetas favoritas ahorrando tiempo, gas y conservando todos los
+                nutrientes.</p>
+        </div>
+        <div class="hero-image-container">
+            <img src="hero-image.jpeg" alt="Yeni Erequita mostrando ollas Essen">
+        </div>
     </section>
 
     <section class="video-section">
         <h2>Mira mis Recetas y Tips</h2>
         <p class="subtitle">Aprende a usar tus Essen con estos videitos cortos</p>
-        
+
         <div class="video-grid">
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7423951886514015494" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7423951886514015494" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Keke de Maracuya 🍋</div>
             </div>
 
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7438823319559753015" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7438823319559753015" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Todo lo que puedes hacer ✨</div>
             </div>
 
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7444982259658116407" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7444982259658116407" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Humitas calientitas 🌽</div>
             </div>
 
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7555510143903960328" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7555510143903960328" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Torta de Durazno 🍑</div>
             </div>
 
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7445804798819044613" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7445804798819044613" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Keke de Naranja 🍊</div>
             </div>
 
             <div class="video-card">
-<div class="tiktok-container">
-                    <iframe data-src="https://www.tiktok.com/player/v1/7445817064217906438" class="lazy" allowfullscreen></iframe>
+                <div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7445817064217906438" class="lazy"
+                        allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Pan de Almendras 🥖</div>
             </div>
@@ -442,15 +763,19 @@
         <div class="catalogo-box">
             <h2>Catálogo Digital</h2>
             <p>Mira los modelos disponibles, colores y las promos exclusivas de este mes para todo el Perú.</p>
-<a href="#" id="catalogo-btn" class="btn-catalogo" onclick="handleCatalogoClick(event)">
+            <a href="#" id="catalogo-btn" class="btn-catalogo" onclick="handleCatalogoClick(event)">
                 <i class="fas fa-file-pdf"></i> VER CATÁLOGO AQUÍ
             </a>
         </div>
     </section>
 
-    <section class="about" style="padding: 60px 10%; text-align: center;">
+    <section class="about" style="padding: clamp(40px, 8vh, 80px) 10%; text-align: center;">
         <h2>¿Quieres tu Essen?</h2>
-        <p>Soy <strong>Yeni Erequita</strong>. Te ayudo a elegir la olla ideal para tu hogar y te enseño a sacarle el jugo. Realizamos envíos y tenemos todas las facilidades de pago.</p>
+        <p style="font-size: var(--p-size); max-width: 800px; margin: 0 auto 30px auto;">Soy <strong>Yeni
+                Erequita</strong> y te saludo desde la ciudad de <strong>Moquegua</strong>.
+            Realizo <strong>demostraciones de cocina</strong> para que veas en vivo la magia de nuestras ollas, sartenes
+            y cacerolas, ayudándote a elegir la opción perfecta para ti.
+            Hacemos envíos a todo el Perú y contamos con todas las facilidades de pago.</p>
         <a href="https://wa.me/51953999177" class="btn-ws">
             <i class="fab fa-whatsapp"></i> Pregúntame por WhatsApp
         </a>
@@ -460,22 +785,27 @@
         <p>&copy; 2026 Yeni Erequita - Emprendedora Independiente Essen Perú</p>
     </footer>
 
-<a href="https://wa.me/5193999177" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/5193999177" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <!-- Modal para catálogo en tablets -->
-    <div id="catalogo-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
-        <div style="background: white; padding: 40px; border-radius: 20px; max-width: 400px; text-align: center; margin: 20px;">
+    <div id="catalogo-modal"
+        style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+        <div
+            style="background: white; padding: 20px; border-radius: 20px; max-width: 400px; text-align: center; margin: 20px;">
             <h3 style="margin-bottom: 20px; color: var(--essen-oscuro);">Catálogo Digital</h3>
-            <p style="margin-bottom: 30px; color: #666;">¿Qué quieres hacer con el catálogo?</p>
-            <button onclick="verCatalogo()" style="display: block; width: 100%; padding: 15px; margin-bottom: 10px; background: var(--essen-rojo); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
-                <i class="fas fa-eye"></i> Ver Catálogo
+            <p style="margin-bottom: 30px; color: #666;">¿Cómo quieres ver el catálogo?</p>
+            <button onclick="verCatalogo()"
+                style="display: block; width: 100%; padding: 15px; margin-bottom: 10px; background: var(--essen-rojo); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                <i class="fas fa-eye"></i> Ver en esta página
             </button>
-            <button onclick="descargarCatalogo()" style="display: block; width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
-                <i class="fas fa-download"></i> Descargar Catálogo
+            <button onclick="descargarCatalogo()"
+                style="display: block; width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                <i class="fas fa-download"></i> Descargar PDF
             </button>
-            <button onclick="cerrarModal()" style="display: block; width: 100%; padding: 15px; margin-top: 20px; background: #6c757d; color: white; border: none; border-radius: 10px; cursor: pointer;">
+            <button onclick="cerrarModal()"
+                style="display: block; width: 100%; padding: 15px; margin-top: 20px; background: #6c757d; color: white; border: none; border-radius: 10px; cursor: pointer;">
                 Cancelar
             </button>
         </div>
@@ -498,26 +828,116 @@
             const catalogoUrl = 'https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing';
             const downloadUrl = 'https://drive.google.com/uc?export=download&id=1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm';
 
-            switch(device) {
+            switch (device) {
                 case 'desktop':
-                    // Abrir en nueva pestaña
-                    window.open(catalogoUrl, '_blank');
+                    // Abrir en la misma página usando iframe
+                    mostrarPDFEnPagina(catalogoUrl);
                     break;
                 case 'tablet':
-                    // Mostrar modal con opciones
+                    // Mostrar modal con opciones (ahora incluye opción de ver en misma página)
                     document.getElementById('catalogo-modal').style.display = 'flex';
                     break;
                 case 'mobile':
                 case 'small-mobile':
-                    // Descarga directa automática
-                    window.location.href = downloadUrl;
+                    // En móviles, mostrar PDF en la misma página
+                    mostrarPDFEnPagina(catalogoUrl);
                     break;
             }
         }
 
+        // Función para mostrar PDF en la misma página
+        function mostrarPDFEnPagina(pdfUrl) {
+            // Crear o actualizar el contenedor del PDF
+            let pdfContainer = document.getElementById('pdf-container');
+
+            if (!pdfContainer) {
+                // Crear el contenedor si no existe
+                pdfContainer = document.createElement('div');
+                pdfContainer.id = 'pdf-container';
+                pdfContainer.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 100%;
+                    background: rgba(0,0,0,0.95);
+                    z-index: 3000;
+                    display: flex;
+                    flex-direction: column;
+                `;
+                document.body.appendChild(pdfContainer);
+            }
+
+            // Múltiples opciones de URLs para embed
+            const fileId = '1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm';
+            // Usar Google Docs Viewer para mejor compatibilidad móvil (sin UI de Drive)
+            const googleDocsUrl = `https://docs.google.com/viewer?srcid=${fileId}&pid=explorer&efh=false&a=v&chrome=false&embedded=true`;
+            // Fallback directo
+            const drivePreviewUrl = `https://drive.google.com/file/d/${fileId}/preview`;
+
+            // Actualizar el contenido del contenedor
+            pdfContainer.innerHTML = `
+                <div style="background: var(--essen-rojo); color: white; padding: 10px 15px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; height: 50px; box-sizing: border-box;">
+                    <h3 style="margin: 0; font-size: 1rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">Catálogo Digital Valni Essen</h3>
+                    <button onclick="cerrarPDF()" style="background: white; color: var(--essen-rojo); border: none; padding: 5px 12px; border-radius: 5px; cursor: pointer; font-weight: bold; flex-shrink: 0; margin-left: 10px; font-size: 0.9rem;">
+                        ✕ Cerrar
+                    </button>
+                </div>
+                
+                <div style="flex: 1; display: flex; justify-content: center; align-items: center; padding: 0; overflow: hidden; width: 100%; height: 100%; position: relative;">
+                    <div id="pdf-viewer" style="width: 100%; height: 100%; background: #f0f0f0;">
+                        <iframe src="${drivePreviewUrl}" style="width: 100%; height: 100%; border: none;" allowfullscreen></iframe>
+                    </div>
+                </div>
+            `;
+
+            // Mostrar el contenedor
+            pdfContainer.style.display = 'flex';
+        }
+
+        // Función para intentar ver el PDF con diferentes métodos
+        function intentarVerPDF(url) {
+            const pdfViewer = document.getElementById('pdf-viewer');
+            pdfViewer.innerHTML = `
+                <iframe src="${url}" style="width: 100%; height: 100%; border: none;" allowfullscreen onload="this.style.display='block';" onerror="mostrarErrorPDF();"></iframe>
+                <div id="pdf-error" style="display: none; text-align: center; padding: 40px;">
+                    <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #ffc107; margin-bottom: 20px;"></i>
+                    <h4 style="color: var(--essen-oscuro); margin-bottom: 15px;">No se puede cargar el PDF</h4>
+                    <p style="color: #666; margin-bottom: 25px;">Por favor, usa una de las otras opciones:</p>
+                    <button onclick="abrirCatalogoEnNuevaPestana()" style="background: #007bff; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold; margin-right: 10px;">
+                        <i class="fas fa-external-link-alt"></i> Abrir en Nueva Pestaña
+                    </button>
+                    <button onclick="descargarCatalogo()" style="background: #28a745; color: white; border: none; padding: 12px 25px; border-radius: 8px; cursor: pointer; font-weight: bold;">
+                        <i class="fas fa-download"></i> Descargar PDF
+                    </button>
+                </div>
+            `;
+        }
+
+        // Función para mostrar error de PDF
+        function mostrarErrorPDF() {
+            const iframe = document.querySelector('#pdf-viewer iframe');
+            const error = document.getElementById('pdf-error');
+            if (iframe) iframe.style.display = 'none';
+            if (error) error.style.display = 'block';
+        }
+
+        // Función para cerrar el PDF
+        function cerrarPDF() {
+            const pdfContainer = document.getElementById('pdf-container');
+            if (pdfContainer) {
+                pdfContainer.style.display = 'none';
+            }
+        }
+
+        // Función para abrir catálogo en nueva pestaña (fallback)
+        function abrirCatalogoEnNuevaPestana() {
+            window.open('https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing', '_blank');
+        }
+
         // Funciones del modal
         function verCatalogo() {
-            window.open('https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing', '_blank');
+            mostrarPDFEnPagina('https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing');
             cerrarModal();
         }
 
@@ -533,7 +953,7 @@
         // Lazy loading para videos
         function initLazyLoading() {
             const iframes = document.querySelectorAll('.tiktok-container iframe.lazy');
-            
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -551,51 +971,26 @@
             iframes.forEach(iframe => observer.observe(iframe));
         }
 
-        // Optimización de videos según dispositivo
-        function optimizeVideosForDevice() {
-            const device = getDeviceType();
-            const containers = document.querySelectorAll('.tiktok-container');
-            
-            containers.forEach(container => {
-                if (device === 'mobile' || device === 'small-mobile') {
-                    // Mantener orientación vertical para móviles
-                    container.style.paddingBottom = '177%';
-                } else {
-                    // Orientación horizontal para desktop/tablet
-                    container.style.paddingBottom = '56.25%';
-                }
-            });
-        }
-
         // Inicialización cuando el DOM está listo
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             initLazyLoading();
-            optimizeVideosForDevice();
-        });
-
-        // Re-optimizar cuando cambia el tamaño de la ventana
-        let resizeTimeout;
-        window.addEventListener('resize', function() {
-            clearTimeout(resizeTimeout);
-            resizeTimeout = setTimeout(() => {
-                optimizeVideosForDevice();
-            }, 250);
         });
 
         // Cerrar modal con Escape
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 cerrarModal();
+                cerrarPDF();
             }
         });
 
         // Cerrar modal haciendo clic fuera
-        document.getElementById('catalogo-modal').addEventListener('click', function(event) {
+        document.getElementById('catalogo-modal').addEventListener('click', function (event) {
             if (event.target === this) {
                 cerrarModal();
             }
         });
     </script>
-
 </body>
+
 </html>
