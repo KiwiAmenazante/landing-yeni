@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es-PE">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yeni Erequita - Valni Essen Perú</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --essen-rojo: #e30613;
+            --essen-oscuro: #1a1a1a;
+            --tiktok-negro: #010101;
+            --gris-claro: #f8f9fa;
+            --blanco: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            background-color: var(--gris-claro);
+            color: var(--essen-oscuro);
+        }
+
+        header {
+            background: var(--blanco);
+            padding: 1.2rem 5%;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.6rem;
+            color: var(--essen-rojo);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 { font-size: 2.8rem; margin-bottom: 15px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* Sección Videos */
+        .video-section { padding: 60px 5%; max-width: 1200px; margin: 0 auto; }
+        .video-section h2 { 
+            text-align: center; 
+            color: var(--essen-oscuro); 
+            margin-bottom: 10px;
+            font-size: 2.2rem;
+        }
+        .subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .video-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover { transform: translateY(-8px); }
+
+        .tiktok-container {
+            position: relative;
+            padding-bottom: 177%; 
+            height: 0;
+            background: #000;
+        }
+
+        .tiktok-container iframe {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: none;
+        }
+
+        .video-title {
+            padding: 18px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 1rem;
+            border-top: 1px solid #eee;
+        }
+
+        /* Botón TikTok Perfil */
+        .tiktok-profile-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            background: var(--tiktok-negro);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            width: fit-content;
+            gap: 10px;
+            transition: background 0.3s;
+        }
+
+        /* Sección Catálogo */
+        .catalogo-section {
+            background: white;
+            padding: 60px 10%;
+            text-align: center;
+        }
+
+        .catalogo-box {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff0f1;
+            padding: 40px;
+            border-radius: 30px;
+            border: 2px dashed var(--essen-rojo);
+        }
+
+        .btn-catalogo {
+            display: inline-block;
+            background: var(--essen-rojo);
+            color: white;
+            padding: 20px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-top: 20px;
+            box-shadow: 0 6px 20px rgba(227, 6, 19, 0.3);
+            transition: 0.3s;
+        }
+
+        .btn-catalogo:hover { transform: scale(1.05); }
+
+        /* Botón WhatsApp */
+        .btn-ws {
+            display: inline-block;
+            background: #25d366;
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25d366;
+            color: white;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            z-index: 1000;
+            text-decoration: none;
+        }
+
+        footer { text-align: center; padding: 50px; background: var(--essen-oscuro); color: rgba(255,255,255,0.7); }
+
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 2.2rem; }
+            .video-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">Yeni Erequita | Valni Essen</div>
+    </header>
+
+    <section class="hero">
+        <h1>¡Cocina Fácil y Riquísimo!</h1>
+        <p>Prepara los mejores platos peruanos ahorrando tiempo y gas.</p>
+    </section>
+
+    <section class="video-section">
+        <h2>Mira mis Recetas y Tips</h2>
+        <p class="subtitle">Aprende a usar tus Essen con estos videitos cortos</p>
+        
+        <div class="video-grid">
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7423951886514015494
+					" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Keke de Maracuya 🍋</div>
+            </div>
+
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7438823319559753015" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Todo lo que puedes hacer ✨</div>
+            </div>
+
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7444982259658116407" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Humitas calientitas 🌽</div>
+            </div>
+
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7555510143903960328" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Torta de Durazno 🍑</div>
+            </div>
+
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7445804798819044613" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Keke de Naranja 🍊</div>
+            </div>
+
+            <div class="video-card">
+                <div class="tiktok-container">
+                    <iframe src="https://www.tiktok.com/player/v1/7445817064217906438" allowfullscreen></iframe>
+                </div>
+                <div class="video-title">Pan de Almendras 🥖</div>
+            </div>
+        </div>
+
+        <a href="https://www.tiktok.com/@valni.essen" class="tiktok-profile-btn" target="_blank">
+            <i class="fab fa-tiktok"></i> Sígueme en TikTok @valni.essen
+        </a>
+    </section>
+
+    <section class="catalogo-section">
+        <div class="catalogo-box">
+            <h2>Catálogo Digital</h2>
+            <p>Mira los modelos disponibles, colores y las promos exclusivas de este mes para todo el Perú.</p>
+            <a href="https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing" class="btn-catalogo" target="_blank">
+                <i class="fas fa-file-pdf"></i> VER CATÁLOGO AQUÍ
+            </a>
+        </div>
+    </section>
+
+    <section class="about" style="padding: 60px 10%; text-align: center;">
+        <h2>¿Quieres tu Essen?</h2>
+        <p>Soy <strong>Yeni Erequita</strong>. Te ayudo a elegir la olla ideal para tu hogar y te enseño a sacarle el jugo. Realizamos envíos y tenemos todas las facilidades de pago.</p>
+        <a href="https://wa.me/51953999177" class="btn-ws">
+            <i class="fab fa-whatsapp"></i> Pregúntame por WhatsApp
+        </a>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Yeni Erequita - Emprendedora Independiente Essen Perú</p>
+    </footer>
+
+    <a href="https://wa.me/5193999177" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+</body>
+</html>
