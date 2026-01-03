@@ -85,10 +85,20 @@
             background: #000;
         }
 
-        .tiktok-container iframe {
+.tiktok-container iframe {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             border: none;
+        }
+        
+        /* Lazy loading para videos */
+        .tiktok-container iframe.lazy {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .tiktok-container iframe.loaded {
+            opacity: 1;
         }
 
         .video-title {
@@ -181,9 +191,186 @@
 
         footer { text-align: center; padding: 50px; background: var(--essen-oscuro); color: rgba(255,255,255,0.7); }
 
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 2.2rem; }
-            .video-grid { grid-template-columns: 1fr; }
+/* MEDIA QUERIES RESPONSIVAS AVANZADAS */
+        
+        /* Desktop (>1200px) */
+        @media (min-width: 1201px) {
+            header { padding: 1.5rem 8%; }
+            .logo { font-size: 1.8rem; }
+            .hero { padding: 120px 20px; }
+            .hero h1 { font-size: 3.2rem; }
+            .hero p { font-size: 1.3rem; }
+            .video-section { padding: 80px 8%; max-width: 1400px; }
+            .video-section h2 { font-size: 2.5rem; }
+            .video-grid { 
+                grid-template-columns: repeat(3, 1fr); 
+                gap: 30px;
+            }
+            .catalogo-section { padding: 80px 15%; }
+            .catalogo-box { padding: 50px; max-width: 700px; }
+            .btn-catalogo { padding: 25px 50px; font-size: 1.3rem; }
+            .btn-ws { padding: 22px 50px; font-size: 1.2rem; }
+            .whatsapp-float { 
+                width: 75px; 
+                height: 75px; 
+                bottom: 40px; 
+                right: 40px; 
+                font-size: 36px;
+            }
+        }
+        
+        /* Tablet (768px-1200px) */
+        @media (min-width: 768px) and (max-width: 1200px) {
+            header { padding: 1.2rem 6%; }
+            .logo { font-size: 1.6rem; }
+            .hero { padding: 100px 20px; }
+            .hero h1 { font-size: 2.8rem; }
+            .hero p { font-size: 1.2rem; }
+            .video-section { padding: 60px 6%; max-width: 1000px; }
+            .video-section h2 { font-size: 2.2rem; }
+            .video-grid { 
+                grid-template-columns: repeat(2, 1fr); 
+                gap: 25px;
+            }
+            .catalogo-section { padding: 60px 10%; }
+            .catalogo-box { padding: 40px; max-width: 600px; }
+            .btn-catalogo { padding: 20px 40px; font-size: 1.2rem; }
+            .btn-ws { padding: 18px 40px; font-size: 1.1rem; }
+            .whatsapp-float { 
+                width: 65px; 
+                height: 65px; 
+                bottom: 30px; 
+                right: 30px; 
+                font-size: 32px;
+            }
+        }
+        
+        /* Móvil (480px-768px) */
+        @media (min-width: 480px) and (max-width: 767px) {
+            header { padding: 1rem 4%; }
+            .logo { font-size: 1.4rem; letter-spacing: 1px; }
+            .hero { padding: 80px 15px; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero p { font-size: 1.1rem; }
+            .video-section { padding: 50px 4%; }
+            .video-section h2 { font-size: 2rem; }
+            .video-grid { 
+                grid-template-columns: 1fr; 
+                gap: 20px;
+            }
+            .video-card { border-radius: 15px; }
+            .tiktok-container { padding-bottom: 177%; }
+            .video-title { padding: 15px; font-size: 0.95rem; }
+            .tiktok-profile-btn { 
+                padding: 18px 25px; 
+                font-size: 1rem;
+                margin: 30px auto;
+            }
+            .catalogo-section { padding: 50px 6%; }
+            .catalogo-box { padding: 30px 20px; }
+            .btn-catalogo { 
+                padding: 25px 30px; 
+                font-size: 1.1rem;
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .btn-ws { 
+                padding: 22px 30px; 
+                font-size: 1rem;
+                min-height: 50px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 10px;
+            }
+            .whatsapp-float { 
+                width: 60px; 
+                height: 60px; 
+                bottom: 20px; 
+                right: 20px; 
+                font-size: 28px;
+            }
+        }
+        
+        /* Móvil pequeño (<480px) */
+        @media (max-width: 479px) {
+            header { padding: 0.8rem 3%; }
+            .logo { font-size: 1.2rem; letter-spacing: 0.5px; }
+            .hero { padding: 60px 10px; }
+            .hero h1 { font-size: 2rem; line-height: 1.2; }
+            .hero p { font-size: 1rem; }
+            .video-section { padding: 40px 3%; }
+            .video-section h2 { font-size: 1.8rem; }
+            .subtitle { font-size: 0.9rem; margin-bottom: 30px; }
+            .video-grid { 
+                grid-template-columns: 1fr; 
+                gap: 15px;
+            }
+            .video-card { border-radius: 12px; }
+            .tiktok-container { padding-bottom: 177%; }
+            .video-title { padding: 12px; font-size: 0.9rem; }
+            .tiktok-profile-btn { 
+                padding: 20px 20px; 
+                font-size: 0.95rem;
+                margin: 25px auto;
+                width: 90%;
+                max-width: 300px;
+            }
+            .catalogo-section { padding: 40px 4%; }
+            .catalogo-box { padding: 25px 15px; }
+            .catalogo-box h2 { font-size: 1.5rem; }
+            .catalogo-box p { font-size: 0.9rem; }
+            .btn-catalogo { 
+                padding: 30px 20px; 
+                font-size: 1rem;
+                min-height: 60px;
+                width: 90%;
+                max-width: 280px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            .btn-ws { 
+                padding: 25px 20px; 
+                font-size: 0.95rem;
+                min-height: 55px;
+                width: 90%;
+                max-width: 280px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+            }
+            .whatsapp-float { 
+                width: 55px; 
+                height: 55px; 
+                bottom: 15px; 
+                right: 15px; 
+                font-size: 24px;
+            }
+            .about { padding: 40px 4%; }
+            .about h2 { font-size: 1.5rem; }
+            .about p { font-size: 0.9rem; }
+            footer { padding: 30px 20px; font-size: 0.85rem; }
+        }
+        
+        /* Optimización de animaciones para móviles */
+        @media (max-width: 767px) {
+            .video-card { transition: transform 0.2s ease; }
+            .video-card:hover { transform: translateY(-4px); }
+            .btn-catalogo { transition: transform 0.2s ease; }
+            .btn-catalogo:hover { transform: scale(1.02); }
+            .tiktok-profile-btn { transition: background 0.2s; }
+        }
+        
+        /* Reducción de motion para usuarios que lo prefieren */
+        @media (prefers-reduced-motion: reduce) {
+            * { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; }
+            .video-card, .btn-catalogo, .tiktok-profile-btn { transition: none !important; }
         }
     </style>
 </head>
@@ -204,44 +391,43 @@
         
         <div class="video-grid">
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7423951886514015494
-					" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7423951886514015494" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Keke de Maracuya 🍋</div>
             </div>
 
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7438823319559753015" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7438823319559753015" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Todo lo que puedes hacer ✨</div>
             </div>
 
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7444982259658116407" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7444982259658116407" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Humitas calientitas 🌽</div>
             </div>
 
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7555510143903960328" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7555510143903960328" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Torta de Durazno 🍑</div>
             </div>
 
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7445804798819044613" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7445804798819044613" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Keke de Naranja 🍊</div>
             </div>
 
             <div class="video-card">
-                <div class="tiktok-container">
-                    <iframe src="https://www.tiktok.com/player/v1/7445817064217906438" allowfullscreen></iframe>
+<div class="tiktok-container">
+                    <iframe data-src="https://www.tiktok.com/player/v1/7445817064217906438" class="lazy" allowfullscreen></iframe>
                 </div>
                 <div class="video-title">Pan de Almendras 🥖</div>
             </div>
@@ -256,7 +442,7 @@
         <div class="catalogo-box">
             <h2>Catálogo Digital</h2>
             <p>Mira los modelos disponibles, colores y las promos exclusivas de este mes para todo el Perú.</p>
-            <a href="https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing" class="btn-catalogo" target="_blank">
+<a href="#" id="catalogo-btn" class="btn-catalogo" onclick="handleCatalogoClick(event)">
                 <i class="fas fa-file-pdf"></i> VER CATÁLOGO AQUÍ
             </a>
         </div>
@@ -274,9 +460,142 @@
         <p>&copy; 2026 Yeni Erequita - Emprendedora Independiente Essen Perú</p>
     </footer>
 
-    <a href="https://wa.me/5193999177" class="whatsapp-float" target="_blank">
+<a href="https://wa.me/5193999177" class="whatsapp-float" target="_blank">
         <i class="fab fa-whatsapp"></i>
     </a>
+
+    <!-- Modal para catálogo en tablets -->
+    <div id="catalogo-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 2000; justify-content: center; align-items: center;">
+        <div style="background: white; padding: 40px; border-radius: 20px; max-width: 400px; text-align: center; margin: 20px;">
+            <h3 style="margin-bottom: 20px; color: var(--essen-oscuro);">Catálogo Digital</h3>
+            <p style="margin-bottom: 30px; color: #666;">¿Qué quieres hacer con el catálogo?</p>
+            <button onclick="verCatalogo()" style="display: block; width: 100%; padding: 15px; margin-bottom: 10px; background: var(--essen-rojo); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                <i class="fas fa-eye"></i> Ver Catálogo
+            </button>
+            <button onclick="descargarCatalogo()" style="display: block; width: 100%; padding: 15px; background: #28a745; color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer;">
+                <i class="fas fa-download"></i> Descargar Catálogo
+            </button>
+            <button onclick="cerrarModal()" style="display: block; width: 100%; padding: 15px; margin-top: 20px; background: #6c757d; color: white; border: none; border-radius: 10px; cursor: pointer;">
+                Cancelar
+            </button>
+        </div>
+    </div>
+
+    <script>
+        // Detección de dispositivo
+        function getDeviceType() {
+            const width = window.innerWidth;
+            if (width > 1200) return 'desktop';
+            if (width >= 768 && width <= 1200) return 'tablet';
+            if (width >= 480 && width < 768) return 'mobile';
+            return 'small-mobile';
+        }
+
+        // Handler inteligente para catálogo
+        function handleCatalogoClick(event) {
+            event.preventDefault();
+            const device = getDeviceType();
+            const catalogoUrl = 'https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing';
+            const downloadUrl = 'https://drive.google.com/uc?export=download&id=1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm';
+
+            switch(device) {
+                case 'desktop':
+                    // Abrir en nueva pestaña
+                    window.open(catalogoUrl, '_blank');
+                    break;
+                case 'tablet':
+                    // Mostrar modal con opciones
+                    document.getElementById('catalogo-modal').style.display = 'flex';
+                    break;
+                case 'mobile':
+                case 'small-mobile':
+                    // Descarga directa automática
+                    window.location.href = downloadUrl;
+                    break;
+            }
+        }
+
+        // Funciones del modal
+        function verCatalogo() {
+            window.open('https://drive.google.com/file/d/1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm/view?usp=sharing', '_blank');
+            cerrarModal();
+        }
+
+        function descargarCatalogo() {
+            window.location.href = 'https://drive.google.com/uc?export=download&id=1L6fPoojHgdQgYNIVeXGhv0XNSEzU8zwm';
+            cerrarModal();
+        }
+
+        function cerrarModal() {
+            document.getElementById('catalogo-modal').style.display = 'none';
+        }
+
+        // Lazy loading para videos
+        function initLazyLoading() {
+            const iframes = document.querySelectorAll('.tiktok-container iframe.lazy');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const iframe = entry.target;
+                        iframe.src = iframe.dataset.src;
+                        iframe.classList.remove('lazy');
+                        iframe.classList.add('loaded');
+                        observer.unobserve(iframe);
+                    }
+                });
+            }, {
+                rootMargin: '100px'
+            });
+
+            iframes.forEach(iframe => observer.observe(iframe));
+        }
+
+        // Optimización de videos según dispositivo
+        function optimizeVideosForDevice() {
+            const device = getDeviceType();
+            const containers = document.querySelectorAll('.tiktok-container');
+            
+            containers.forEach(container => {
+                if (device === 'mobile' || device === 'small-mobile') {
+                    // Mantener orientación vertical para móviles
+                    container.style.paddingBottom = '177%';
+                } else {
+                    // Orientación horizontal para desktop/tablet
+                    container.style.paddingBottom = '56.25%';
+                }
+            });
+        }
+
+        // Inicialización cuando el DOM está listo
+        document.addEventListener('DOMContentLoaded', function() {
+            initLazyLoading();
+            optimizeVideosForDevice();
+        });
+
+        // Re-optimizar cuando cambia el tamaño de la ventana
+        let resizeTimeout;
+        window.addEventListener('resize', function() {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = setTimeout(() => {
+                optimizeVideosForDevice();
+            }, 250);
+        });
+
+        // Cerrar modal con Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                cerrarModal();
+            }
+        });
+
+        // Cerrar modal haciendo clic fuera
+        document.getElementById('catalogo-modal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                cerrarModal();
+            }
+        });
+    </script>
 
 </body>
 </html>
