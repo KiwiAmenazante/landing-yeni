@@ -680,27 +680,132 @@
                 transition: none !important;
             }
         }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Navbar Styles */
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        .desktop-nav {
+            display: none;
+            /* Hidden on mobile by default */
+        }
+
+        .desktop-nav a {
+            color: var(--essen-oscuro);
+            text-decoration: none;
+            margin-left: 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+
+        .desktop-nav a:hover {
+            color: var(--essen-rojo);
+        }
+
+        .mobile-menu-btn {
+            display: block;
+            /* Shown on mobile */
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--essen-oscuro);
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            background: white;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 1rem 0;
+            text-align: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav a {
+            padding: 1rem;
+            text-decoration: none;
+            color: var(--essen-oscuro);
+            font-weight: 600;
+            border-bottom: 1px solid #eee;
+        }
+
+        .mobile-nav a:last-child {
+            border-bottom: none;
+        }
+
+        /* Desktop Media Query Additions - Show Desktop Nav on Tablet+ */
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+
+            .mobile-nav {
+                display: none !important;
+            }
+
+            .desktop-nav {
+                display: block;
+            }
+        }
     </style>
 </head>
 
 <body>
 
     <header>
-        <div class="logo">Yeni Erequita | Valni Essen</div>
+        <div class="header-container">
+            <div class="logo">Yeni Erequita | Valni Essen</div>
+
+            <nav class="desktop-nav">
+                <a href="#inicio">Inicio</a>
+                <a href="#recetas">Recetas</a>
+                <a href="#catalogo">Catálogo</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+
+            <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <nav class="mobile-nav" id="mobile-nav">
+            <a href="#inicio" onclick="toggleMobileMenu()">Inicio</a>
+            <a href="#recetas" onclick="toggleMobileMenu()">Recetas</a>
+            <a href="#catalogo" onclick="toggleMobileMenu()">Catálogo</a>
+            <a href="#contacto" onclick="toggleMobileMenu()">Contacto</a>
+        </nav>
     </header>
 
-    <section class="hero">
+    <section class="hero" id="inicio">
         <div class="hero-content">
             <h1>Transforma tu Cocina en una Experiencia Essen</h1>
             <p>Innovación y diseño para preparar tus recetas favoritas ahorrando tiempo, gas y conservando todos los
                 nutrientes.</p>
         </div>
         <div class="hero-image-container">
-            <img src="hero-image.jpeg" alt="Yeni Erequita mostrando ollas Essen">
+            <img src="hero_yeni_essen.png" alt="Yeni Erequita mostrando ollas Essen">
         </div>
     </section>
 
-    <section class="video-section">
+    <section class="video-section" id="recetas">
         <h2>Mira mis Recetas y Tips</h2>
         <p class="subtitle">Aprende a usar tus Essen con estos videitos cortos</p>
 
@@ -759,7 +864,7 @@
         </a>
     </section>
 
-    <section class="catalogo-section">
+    <section class="catalogo-section" id="catalogo">
         <div class="catalogo-box">
             <h2>Catálogo Digital</h2>
             <p>Mira los modelos disponibles, colores y las promos exclusivas de este mes para todo el Perú.</p>
@@ -769,7 +874,7 @@
         </div>
     </section>
 
-    <section class="about" style="padding: clamp(40px, 8vh, 80px) 10%; text-align: center;">
+    <section class="about" id="contacto" style="padding: clamp(40px, 8vh, 80px) 10%; text-align: center;">
         <h2>¿Quieres tu Essen?</h2>
         <p style="font-size: var(--p-size); max-width: 800px; margin: 0 auto 30px auto;">Soy <strong>Yeni
                 Erequita</strong> y te saludo desde la ciudad de <strong>Moquegua</strong>.
@@ -977,6 +1082,16 @@
         });
 
         // Cerrar modal con Escape
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const nav = document.getElementById('mobile-nav');
+            if (nav.classList.contains('active')) {
+                nav.classList.remove('active');
+            } else {
+                nav.classList.add('active');
+            }
+        }
+
         document.addEventListener('keydown', function (event) {
             if (event.key === 'Escape') {
                 cerrarModal();
